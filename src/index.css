@@ -1,0 +1,17 @@
+/* src/styles/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add any additional custom styles here */
+body {
+  @apply bg-gray-100 text-gray-900;
+}
+
+button {
+  @apply bg-blue-500 text-white py-2 px-4 rounded;
+}
+
+button:hover {
+  @apply bg-blue-600;
+}
