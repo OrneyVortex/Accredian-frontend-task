@@ -10,7 +10,16 @@ const Modal = ({ isOpen, onClose }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('/api/send-referral', { name, email });
+      const res = await fetch('https://accredian-backend-task-5le7.onrender.com/:3000/referal', { 
+        body: JSON.stringify({
+          referredEmail: email
+        }),
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      console.log(res);
       alert('Referral email sent successfully');
       onClose();
     } catch (error) {
@@ -32,7 +41,7 @@ const Modal = ({ isOpen, onClose }) => {
         </button>
         <h2 className="text-2xl font-bold mb-4">Refer Now</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
-          <div>
+          {/* <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Name
             </label>
@@ -44,7 +53,7 @@ const Modal = ({ isOpen, onClose }) => {
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               required
             />
-          </div>
+          </div> */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email
