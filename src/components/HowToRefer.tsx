@@ -15,7 +15,7 @@ const HowToRefer = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="max-w-4xl mx-auto p-4 m-8">
       <h1 className="text-2xl font-bold mb-8 text-center">
         How do I <span className="text-blue-500">Refer</span>
       </h1>
