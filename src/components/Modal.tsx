@@ -1,9 +1,23 @@
-// src/components/Modal.js
-
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const Modal = ({ isOpen, onClose }) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
   if (!isOpen) return null;
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.post('/api/send-referral', { name, email });
+      alert('Referral email sent successfully');
+      onClose();
+    } catch (error) {
+      alert('Failed to send email');
+      console.error(error);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -17,7 +31,7 @@ const Modal = ({ isOpen, onClose }) => {
           </svg>
         </button>
         <h2 className="text-2xl font-bold mb-4">Refer Now</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Name
@@ -25,7 +39,10 @@ const Modal = ({ isOpen, onClose }) => {
             <input
               type="text"
               id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
             />
           </div>
           <div>
@@ -35,7 +52,10 @@ const Modal = ({ isOpen, onClose }) => {
             <input
               type="email"
               id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
             />
           </div>
           <button

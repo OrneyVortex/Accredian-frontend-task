@@ -1,106 +1,103 @@
 import React, { useState } from 'react';
 
-interface Program {
-  name: string;
-  referrerBonus: string;
-  refereeBonus: string;
-}
+const ReferralBenefits = () => {
+  const [enrolled, setEnrolled] = useState(false);
 
-const ReferralBenefits: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All Programs');
-
-  const programsData: { [key: string]: Program[] } = {
-    'All Programs': [
-      { name: 'Professional Certificate Program in Product Management', referrerBonus: '₹ 7,000', refereeBonus: '₹ 9,000' },
-      { name: 'PG Certificate Program in Strategic Product Management', referrerBonus: '₹ 9,000', refereeBonus: '₹ 11,000' },
-      { name: 'Executive Program in Data Driven Product Management', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-      { name: 'Executive Program in Product Management and Digital Transformation', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-      { name: 'Executive Program in Product Management', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-      { name: 'Advanced Certification in Product Management', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-      { name: 'Executive Program in Product Management and Project Management', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-      { name: 'Professional Certificate Program in Strategy & Leadership', referrerBonus: '₹ 7,000', refereeBonus: '₹ 9,000' },
-      { name: 'Executive Program in Business Management', referrerBonus: '₹ 9,000', refereeBonus: '₹ 11,000' },
-      { name: 'Fintech Certification Program', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-      { name: 'Senior Management Program', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-      { name: 'Data Science Bootcamp', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-      { name: 'Digital Transformation Certification', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-      { name: 'Business Analytics Certification', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-    ],
-    'Product Management': [
-      { name: 'Professional Certificate Program in Product Management', referrerBonus: '₹ 7,000', refereeBonus: '₹ 9,000' },
-      { name: 'PG Certificate Program in Strategic Product Management', referrerBonus: '₹ 9,000', refereeBonus: '₹ 11,000' },
-      { name: 'Executive Program in Data Driven Product Management', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-    ],
-    'Strategy & Leadership': [
-      { name: 'Professional Certificate Program in Strategy & Leadership', referrerBonus: '₹ 7,000', refereeBonus: '₹ 9,000' },
-    ],
-    'Business Management': [
-      { name: 'Executive Program in Business Management', referrerBonus: '₹ 9,000', refereeBonus: '₹ 11,000' },
-    ],
-    'Fintech': [
-      { name: 'Fintech Certification Program', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-    ],
-    'Senior Management': [
-      { name: 'Senior Management Program', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-    ],
-    'Data Science': [
-      { name: 'Data Science Bootcamp', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-    ],
-    'Digital Transformation': [
-      { name: 'Digital Transformation Certification', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-    ],
-    'Business Analytics': [
-      { name: 'Business Analytics Certification', referrerBonus: '₹ 10,000', refereeBonus: '₹ 10,000' },
-    ],
+  const toggleEnrolled = () => {
+    setEnrolled(!enrolled);
   };
 
-  const programCategories = Object.keys(programsData);
-
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center p-4">
-      <h1 className="text-2xl font-bold mb-8">
-        What Are The <span className="text-blue-600">Referral Benefits?</span>
-      </h1>
-      <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
-        {/* Sidebar */}
-        <div className="w-full lg:w-1/4 bg-white shadow-lg rounded-lg p-4 space-y-4">
-          {programCategories.map((category, index) => (
-            <div
-              key={index}
-              onClick={() => setSelectedCategory(category)}
-              className={`flex justify-between items-center border-b border-gray-200 pb-2 cursor-pointer ${selectedCategory === category ? 'bg-blue-100' : ''}`}
-            >
-              <span className={`text-sm ${selectedCategory === category ? 'text-blue-600 font-bold' : 'text-gray-700'}`}>{category}</span>
-              <span className={`text-sm ${selectedCategory === category ? 'text-blue-600 font-bold' : 'text-gray-700'}`}>{'>'}</span>
+    <div className="max-w-screen-xl mx-auto p-4">
+      <div className='relative'>
+      <div className="flex items-center absolute right-0">
+              <span className="mr-2">Enrolled</span>
+              <label className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                <input type="checkbox" name="toggle" id="toggle" checked={enrolled} onChange={toggleEnrolled} className="absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                <span className="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></span>
+                <span className={`dot absolute left-1 top-1 w-4 h-4 rounded-full transition transform ${enrolled ? 'translate-x-full bg-blue-500' : 'bg-white'}`}></span>
+              </label>
             </div>
-          ))}
-        </div>
-
-        {/* Referral Benefits Table */}
-        <div className="w-full lg:w-3/4 bg-white shadow-lg rounded-lg p-4">
-          <div className="flex justify-between items-center border-b border-gray-200 pb-4 bg-blue-100 rounded-t-lg">
-            <h2 className="text-blue-600 font-bold text-lg">Programs</h2>
-            <div className="flex items-center space-x-4">
-              <span className="text-gray-700">Referrer Bonus</span>
-              <span className="text-gray-700">|</span> {/* Divider line */}
-              <span className="text-gray-700">Referee Bonus</span>
-            </div>
+      </div>
+      <h2 className="text-2xl font-semibold text-center mb-4">
+        What Are The <a href="#" className="text-blue-500">Referral Benefits?</a>
+      </h2>
+      <div className="flex flex-col lg:flex-row">
+        <div className="w-full lg:w-1/4 bg-gray-100 p-4 rounded-lg shadow-md mb-4 lg:mb-0">
+          <div className="flex flex-col space-y-2">
+            <div className="p-2 bg-blue-500 text-white rounded-lg cursor-pointer">ALL PROGRAMS</div>
+            <div className="p-2 bg-white text-gray-700 rounded-lg cursor-pointer">PRODUCT MANAGEMENT</div>
+            <div className="p-2 bg-white text-gray-700 rounded-lg cursor-pointer">STRATEGY & LEADERSHIP</div>
+            <div className="p-2 bg-white text-gray-700 rounded-lg cursor-pointer">BUSINESS MANAGEMENT</div>
+            <div className="p-2 bg-white text-gray-700 rounded-lg cursor-pointer">FINTECH</div>
+            <div className="p-2 bg-white text-gray-700 rounded-lg cursor-pointer">SENIOR MANAGEMENT</div>
+            <div className="p-2 bg-white text-gray-700 rounded-lg cursor-pointer">DATA SCIENCE</div>
+            <div className="p-2 bg-white text-gray-700 rounded-lg cursor-pointer">DIGITAL TRANSFORMATION</div>
+            <div className="p-2 bg-white text-gray-700 rounded-lg cursor-pointer">BUSINESS ANALYTICS</div>
           </div>
-          {programsData[selectedCategory].map((program, index) => (
-            <div key={index} className="flex justify-between items-center border-b border-gray-200 py-2">
-              <span className="text-gray-700">{program.name}</span>
-              <div className="flex space-x-4">
-                <span className="text-gray-700">{program.referrerBonus}</span>
-                <span className="text-gray-700">|</span> {/* Divider line */}
-                <span className="text-gray-700">{program.refereeBonus}</span>
-              </div>
-            </div>
-          ))}
+        </div>
+        <div className="w-full lg:w-3/4 bg-white p-4 rounded-lg shadow-md">
+          <div className="flex justify-between items-center mb-4">
+            <div className="text-lg font-semibold"></div>
+
+          </div>
+          <table className="w-full text-left table-auto">
+            <thead>
+              <tr className="bg-blue-100">
+                <th className="p-2">Programs</th>
+                <th className="p-2">Referrer Bonus</th>
+                <th className="p-2">Referee Bonus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="p-2">Professional Certificate Program in Product Management</td>
+                <td className="p-2">₹ 7,000</td>
+                <td className="p-2">₹ 9,000</td>
+              </tr>
+              <tr className="bg-gray-100">
+                <td className="p-2">PG Certificate Program in Strategic Product Management</td>
+                <td className="p-2">₹ 9,000</td>
+                <td className="p-2">₹ 11,000</td>
+              </tr>
+              <tr>
+                <td className="p-2">Executive Program in Data Driven Product Management</td>
+                <td className="p-2">₹ 10,000</td>
+                <td className="p-2">₹ 10,000</td>
+              </tr>
+              <tr className="bg-gray-100">
+                <td className="p-2">Executive Program in Product Management and Digital Transformation</td>
+                <td className="p-2">₹ 10,000</td>
+                <td className="p-2">₹ 10,000</td>
+              </tr>
+              <tr>
+                <td className="p-2">Executive Program in Product Management</td>
+                <td className="p-2">₹ 10,000</td>
+                <td className="p-2">₹ 10,000</td>
+              </tr>
+              <tr className="bg-gray-100">
+                <td className="p-2">Advanced Certification in Product Management</td>
+                <td className="p-2">₹ 10,000</td>
+                <td className="p-2">₹ 10,000</td>
+              </tr>
+              <tr>
+                <td className="p-2">Executive Program in Product Management and Project Management</td>
+                <td className="p-2">₹ 10,000</td>
+                <td className="p-2">₹ 10,000</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div className="mt-8">
-        <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Refer Now</button>
-      </div>
+
+          <div className="relative mt-4">
+            <button className="flex items-center absolute right-0 bg-gray-400">Show More <span className="ml-2">&#x25BC;</span></button>
+          </div>
+          <div className='mt-28 flex justify-center mb-10'>
+
+            <button className="bg-blue-500 text-white py-2 px-4 rounded-lg">Refer Now</button>
+          </div>
+
     </div>
   );
 };
